@@ -37,7 +37,9 @@ RATE_LIMIT_KEYWORDS = ['rate limit', 'too many', 'try again', 'limit', 'exceeded
 global_callback = None
 
 # === KONFIGURASI DELAY ===
-DELAY_BETWEEN_ROUNDS = 15  # Jeda antar round (detik) - dikurangi dari 60 menjadi 15
+DELAY_BETWEEN_ROUNDS = 15
+DELAY_BETWEEN_REQUESTS_MIN = 1
+DELAY_BETWEEN_REQUESTS_MAX = 3
 
 def log_target(idx, total, name, status, detail=""):
     with print_lock:
@@ -66,6 +68,10 @@ def process_target(api, target62, ip, idx, total):
     status_text = "FAIL"
     detail = ""
     success = False
+
+    # === DELAY SEBELUM REQUEST ===
+    delay = random.uniform(DELAY_BETWEEN_REQUESTS_MIN, DELAY_BETWEEN_REQUESTS_MAX)
+    time.sleep(delay)
 
     try:
         session = requests.Session()
