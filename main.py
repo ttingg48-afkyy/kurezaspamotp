@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# main.py - Kureza Spam OTP
+# main.py - Kureza Spam OTP v3.0 (All in One)
+# Features: OTP Spam + Pairing Spam + Call Spam
 
 import sys
 import time
@@ -12,14 +13,16 @@ import random
 import threading
 import shutil
 import re
+import subprocess
 from colorama import Fore, Style, init
 
 from main_engine import run_single_round, run_infinite_loop
+from call_spam import run_call_spam
 
 init(autoreset=True)
 
-VERSION = "1.0.0"
-TOOLS_NAME = "KUREZA SPAM OTP"
+VERSION = "3.0.0"
+TOOLS_NAME = "KUREZA SPAM OTP v3"
 
 exec_data = {
     'target': '',
@@ -120,7 +123,7 @@ class MatrixBackground:
                         color = Fore.GREEN + Style.DIM
                     
                     screen[y][x] = color + char + Style.RESET_ALL
-        
+     
         for y in range(self.height):
             print(''.join(screen[y]))
         
@@ -142,7 +145,7 @@ class MatrixBackground:
 
 def matrix_loading(duration=3):
     matrix = MatrixBackground()
-     
+    
     ascii_kureza = [
         "    ██╗  ██╗██╗   ██╗██████╗ ███████╗███████╗  █████╗ ",
         "    ██║ ██╔╝██║   ██║██╔══██╗╚══███╔╝╚══███╔╝██╔══██╗",
@@ -200,6 +203,8 @@ def matrix_loading(duration=3):
             f"{status_color}{'═' * 20}{Style.RESET_ALL}",
             f"{status_color}  {status_text}  {Style.RESET_ALL}",
             f"{status_color}{'═' * 20}{Style.RESET_ALL}",
+            "",
+            f"{Fore.CYAN}  3 IN 1 TOOLS - OTP + PAIRING + CALL{Style.RESET_ALL}",
         ]
         
         matrix.render(overlay)
@@ -212,15 +217,16 @@ def print_banner(tick=0):
     color = rgb_color(tick)
     reset = Style.RESET_ALL
     
-    title = gradient_text("KUREZA SPAM OTP", tick, 0)
+    title = gradient_text("KUREZA SPAM OTP v3", tick, 0)
     
     banner = f"""
-    ╔═══════════════════════════════════════════════════════════════╗
+  ╔═══════════════════════════════════════════════════════════════╗
   ║                     {title}                       ║
   ╚═══════════════════════════════════════════════════════════════╝
 
   ╔═══════════════════════════════════════════════════════════════╗
   ║  {color}Total API{reset}  : 85+  ║  {color}Version{reset}  : {VERSION}  ║  {color}Dev{reset}  : Kureza Team     ║
+  ║  {color}Fitur{reset}    : OTP Spam + Pairing Spam + Call Spam        ║
   ╚═══════════════════════════════════════════════════════════════╝{reset}
 """
     print(banner)
@@ -229,12 +235,16 @@ def print_menu(selected=0, tick=0):
     color1 = rgb_color(tick, 0)
     color2 = rgb_color(tick, 1)
     color3 = rgb_color(tick, 2)
+    color4 = rgb_color(tick, 3)
+    color5 = rgb_color(tick, 4)
     reset = Style.RESET_ALL
     
     items = [
-        ("▶ Single Round", "Sekali kirim ke semua API ", color1),
-        ("▶ Infinite Loop", "Kirim berulang dengan jeda 15s", color2),
-        ("▶ Keluar", "Tutup aplikasi            ", color3)
+        ("▶ OTP Single Round", "Kirim OTP 1x ke semua API", color1),
+        ("▶ OTP Infinite Loop", "Kirim OTP berulang (jeda 15s)", color2),
+        ("▶ Pairing Spam", "Spam Pairing Code WhatsApp", color3),
+        ("▶ Call Spam", "Spam panggilan WhatsApp", color4),
+        ("▶ Keluar", "Tutup aplikasi", color5)
     ]
     
     menu = f"""
@@ -286,7 +296,7 @@ def input_with_animation(prompt, duration=2):
         tick += 0.1
         color = rgb_color(tick)
         idx = int((time.time() - start) * 4) % 4
-        sys.stdout.write(f'\r{Fore.GREEN}  ┌─{Fore.YELLOW} Masukkan nomor target {color}{chars[idx]}{Style.RESET_ALL}')
+        sys.stdout.write(f'\r{Fore.GREEN}  ┌─{Fore.YELLOW} {prompt} {color}{chars[idx]}{Style.RESET_ALL}')
         sys.stdout.flush()
         time.sleep(0.05)
     
@@ -415,9 +425,99 @@ def run_with_ui(engine_func, target, threads=5):
         stop_update = True
         time.sleep(0.5)
 
+def run_pairing_spam():
+    """Jalankan WhatsApp Pairing Spam"""
+    print()
+    print(f"{Fore.CYAN}┌{'─' * 50}┐{Style.RESET_ALL}")
+    print(f"{Fore.CYAN}│{Style.RESET_ALL}  {Fore.GREEN}📱 WhatsApp Pairing Spam{Style.RESET_ALL}")
+    print(f"{Fore.CYAN}└{'─' * 50}┘{Style.RESET_ALL}")
+    print()
+    
+    # Check Node.js
+    try:
+        subprocess.run(['node', '--version'], capture_output=True, check=True)
+    except:
+        print(f"{Fore.RED}❌ Node.js tidak terinstall!{Style.RESET_ALL}")
+        print(f"{Fore.YELLOW}Install dengan: pkg install nodejs{Style.RESET_ALL}")
+        input(f"\n{Fore.YELLOW}Tekan Enter untuk kembali...{Style.RESET_ALL}")
+        return
+    
+    # Check dependencies
+    if not os.path.exists('./node_modules'):
+        print(f"{Fore.YELLOW}⚠️ Dependencies belum diinstall!{Style.RESET_ALL}")
+        print(f"{Fore.CYAN}📦 Install dependencies...{Style.RESET_ALL}")
+        os.system('npm install @whiskeysockets/baileys @hapi/boom pino qrcode-terminal')
+        print()
+    
+    # Create session folder
+    if not os.path.exists('./pairing_session'):
+        os.makedirs('./pairing_session')
+    
+    print(f"{Fore.CYAN}🚀 Menjalankan Pairing Spam...{Style.RESET_ALL}")
+    print(f"{Fore.YELLOW}⚠️ Pastikan nomor diawali 62 (Indonesia){Style.RESET_ALL}")
+    print()
+    
+    try:
+        subprocess.run(['node', 'pairing.js'], check=True)
+    except KeyboardInterrupt:
+        print(f"\n{Fore.YELLOW}⚠️ Proses dihentikan{Style.RESET_ALL}")
+    except Exception as e:
+        print(f"{Fore.RED}❌ Error: {e}{Style.RESET_ALL}")
+    
+    print()
+    input(f"{Fore.YELLOW}Tekan Enter untuk kembali ke menu...{Style.RESET_ALL}")
+
+def run_call_spam_menu():
+    """Jalankan Call Spam"""
+    print()
+    print(f"{Fore.CYAN}┌{'─' * 50}┐{Style.RESET_ALL}")
+    print(f"{Fore.CYAN}│{Style.RESET_ALL}  {Fore.GREEN}📞 WhatsApp Call Spam{Style.RESET_ALL}")
+    print(f"{Fore.CYAN}└{'─' * 50}┘{Style.RESET_ALL}")
+    print()
+    
+    print(f"{Fore.YELLOW}📋 Format nomor: 6281234567890{Style.RESET_ALL}")
+    print(f"{Fore.YELLOW}📋 Maksimal: 100 panggilan{Style.RESET_ALL}")
+    print(f"{Fore.YELLOW}📋 Delay: 3-7 detik{Style.RESET_ALL}")
+    print()
+    
+    target = input(f"{Fore.WHITE}📱 Nomor target: {Style.RESET_ALL}").strip()
+    if not target:
+        print(f"{Fore.RED}❌ Nomor tidak boleh kosong!{Style.RESET_ALL}")
+        time.sleep(1)
+        return
+    
+    # Bersihkan nomor
+    target = target.replace('+', '').replace('-', '').replace(' ', '')
+    if not target.startswith('62'):
+        target = '62' + target
+    
+    total = input(f"{Fore.WHITE}🔢 Jumlah panggilan (1-100): {Style.RESET_ALL}").strip()
+    try:
+        total = int(total)
+        if total < 1:
+            total = 1
+        if total > 100:
+            total = 100
+    except:
+        total = 10
+    
+    print()
+    print(f"{Fore.YELLOW}⚠️  Memulai Call Spam...{Style.RESET_ALL}")
+    print(f"{Fore.CYAN}   Tekan {Fore.RED}CTRL+C{Fore.CYAN} untuk berhenti{Style.RESET_ALL}")
+    print()
+    time.sleep(1)
+    
+    try:
+        run_call_spam(target, total)
+    except KeyboardInterrupt:
+        print(f"\n{Fore.YELLOW}⚠️ Proses dihentikan{Style.RESET_ALL}")
+    
+    print()
+    input(f"{Fore.YELLOW}Tekan Enter untuk kembali ke menu...{Style.RESET_ALL}")
+
 def menu_navigation():
     selected = 0
-    items = ["single", "infinite", "exit"]
+    items = ["otp_single", "otp_infinite", "pairing", "call", "exit"]
     tick = 0
     
     while True:
@@ -438,9 +538,10 @@ def menu_navigation():
                     selected = (selected + 1) % len(items)
                 elif key in ['\r', '\n', '\x1b[C']:  
                     choice = items[selected]
-                    if choice == "single":
+                    
+                    if choice == "otp_single":
                         clear_screen()
-                        target = input_with_animation("Masukkan nomor target", 1)
+                        target = input_with_animation("Nomor target (08xx)", 1)
                         if not target:
                             print(f"\n{Fore.RED}✖ Nomor tidak boleh kosong!{Style.RESET_ALL}")
                             time.sleep(1)
@@ -449,7 +550,7 @@ def menu_navigation():
                         print_loading_animation("Memulai Single Round", 1)
                         clear_screen()
                         
-                        print(f"\n{Fore.YELLOW}⚠️  Menjalankan Single Round...{Style.RESET_ALL}")
+                        print(f"\n{Fore.YELLOW}⚠️  Menjalankan OTP Single Round...{Style.RESET_ALL}")
                         print(f"{Fore.CYAN}   Tekan {Fore.RED}CTRL+C{Fore.CYAN} untuk berhenti{Style.RESET_ALL}")
                         print()
                         time.sleep(0.5)
@@ -463,18 +564,18 @@ def menu_navigation():
                         print(f"\n{Fore.YELLOW}🔄 Tekan Enter untuk kembali...{Style.RESET_ALL}")
                         input()
                         
-                    elif choice == "infinite":
+                    elif choice == "otp_infinite":
                         clear_screen()
-                        target = input_with_animation("Masukkan nomor target", 1)
+                        target = input_with_animation("Nomor target (08xx)", 1)
                         if not target:
                             print(f"\n{Fore.RED}✖ Nomor tidak boleh kosong!{Style.RESET_ALL}")
                             time.sleep(1)
                             continue
-                              
+                        
                         print_loading_animation("Memulai Infinite Loop", 1)
                         clear_screen()
                         
-                        print(f"\n{Fore.YELLOW}⚠️  Mode Infinite Loop akan berjalan terus menerus{Style.RESET_ALL}")
+                        print(f"\n{Fore.YELLOW}⚠️  Mode OTP Infinite Loop{Style.RESET_ALL}")
                         print(f"{Fore.YELLOW}   Jeda antar round: {Fore.GREEN}15 detik{Style.RESET_ALL}")
                         print(f"{Fore.YELLOW}   Tekan {Fore.RED}CTRL+C{Fore.YELLOW} untuk berhenti{Style.RESET_ALL}")
                         print()
@@ -487,7 +588,12 @@ def menu_navigation():
                         
                         print(f"\n{Fore.GREEN}✔ Proses selesai!{Style.RESET_ALL}")
                         print(f"\n{Fore.YELLOW}🔄 Tekan Enter untuk kembali...{Style.RESET_ALL}")
-                        input()
+                        input()                      
+                    elif choice == "pairing":
+                        run_pairing_spam()
+                        
+                    elif choice == "call":
+                        run_call_spam_menu()
                         
                     elif choice == "exit":
                         print(f"\n{Fore.CYAN}◉ {Fore.WHITE}Keluar...{Style.RESET_ALL}")
@@ -502,10 +608,12 @@ def menu_navigation():
                     sys.exit(0)
             else:
                 print(f"\n{Fore.YELLOW}ℹ️  Mode keyboard tidak tersedia, gunakan input angka{Style.RESET_ALL}")
-                print(f"{Fore.CYAN}   [1] Single Round{Style.RESET_ALL}")
-                print(f"{Fore.CYAN}   [2] Infinite Loop (jeda 15 detik){Style.RESET_ALL}")
-                print(f"{Fore.CYAN}   [3] Keluar{Style.RESET_ALL}")
-                choice = input(f"\n{Fore.WHITE}Pilih (1/2/3): {Style.RESET_ALL}").strip()
+                print(f"{Fore.CYAN}   [1] OTP Single Round{Style.RESET_ALL}")
+                print(f"{Fore.CYAN}   [2] OTP Infinite Loop (jeda 15 detik){Style.RESET_ALL}")
+                print(f"{Fore.CYAN}   [3] Pairing Spam{Style.RESET_ALL}")
+                print(f"{Fore.CYAN}   [4] Call Spam{Style.RESET_ALL}")
+                print(f"{Fore.CYAN}   [5] Keluar{Style.RESET_ALL}")
+                choice = input(f"\n{Fore.WHITE}Pilih (1/2/3/4/5): {Style.RESET_ALL}").strip()
                 
                 if choice == "1":
                     clear_screen()
@@ -532,7 +640,7 @@ def menu_navigation():
                         time.sleep(1)
                         continue
                     
-                    print(f"\n{Fore.YELLOW}⚠️  Mode Infinite Loop akan berjalan terus menerus{Style.RESET_ALL}")
+                    print(f"\n{Fore.YELLOW}⚠️  Mode OTP Infinite Loop{Style.RESET_ALL}")
                     print(f"{Fore.YELLOW}   Jeda antar round: {Fore.GREEN}15 detik{Style.RESET_ALL}")
                     print(f"{Fore.YELLOW}   Tekan {Fore.RED}CTRL+C{Fore.YELLOW} untuk berhenti{Style.RESET_ALL}")
                     print()
@@ -548,6 +656,12 @@ def menu_navigation():
                     input()
                     
                 elif choice == "3":
+                    run_pairing_spam()
+                    
+                elif choice == "4":
+                    run_call_spam_menu()
+                    
+                elif choice == "5":
                     print(f"\n{Fore.CYAN}◉ {Fore.WHITE}Keluar...{Style.RESET_ALL}")
                     time.sleep(0.5)
                     print(f"{Fore.GREEN}✔ Sampai jumpa! 👋{Style.RESET_ALL}")
@@ -572,6 +686,9 @@ def main():
         
         if is_termux:
             print(f"{Fore.GREEN}✔ Mode Termux terdeteksi{Style.RESET_ALL}")
+            print(f"{Fore.CYAN}  🎯 3 Fitur dalam 1 Tools!{Style.RESET_ALL}")
+            print(f"{Fore.CYAN}  📱 OTP Spam + Pairing Spam + Call Spam{Style.RESET_ALL}")
+            print()
             print(f"{Fore.CYAN}  Gunakan tombol ▲/▼ untuk navigasi{Style.RESET_ALL}")
             print(f"{Fore.CYAN}  ENTER atau ▶ untuk memilih, Q untuk keluar{Style.RESET_ALL}")
             print()
@@ -590,3 +707,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+]
