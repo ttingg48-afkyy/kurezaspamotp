@@ -1,0 +1,19 @@
+{
+  "name": "kureza-spam-otp",
+  "version": "3.0.0",
+  "description": "Kureza Spam OTP - 3 in 1 Tools (OTP + Pairing + Call)",
+  "main": "pairing.js",
+  "scripts": {
+    "pairing": "node pairing.js",
+    "start": "python main.py"
+  },
+  "keywords": ["whatsapp", "otp", "spam", "pairing", "call", "kureza"],
+  "author": "Kureza Team",
+  "license": "MIT",
+  "dependencies": {
+    "@hapi/boom": "^10.0.1",
+    "@whiskeysockets/baileys": "^6.5.0",
+    "pino": "^8.16.2",
+    "qrcode-terminal": "^0.12.0"
+  }
+}
